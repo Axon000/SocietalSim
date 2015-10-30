@@ -52,6 +52,7 @@ public class BoxWindow extends JFrame {
     	
 
     	setBoxg(bg);
+    	System.out.println("testchange");
     	setBox(boxg.getBox());
 
     	apply.addActionListener(new ApplyListener());
