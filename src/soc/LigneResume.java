@@ -1,15 +1,19 @@
 package soc;
 
-import java.awt.BorderLayout;
+
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,17 +33,33 @@ public class LigneResume extends JPanel {
 	private JLabel nameLabel=new JLabel();
 	private JLabel valueLabel=new JLabel();
 	private JPanel container =new JPanel();
-	private JPanel container2=new JPanel();
+	private JPanel label1 = new JPanel();
+	private JPanel label2 = new JPanel();
+	private JPanel button = new JPanel();
+
+	private Var vr;
+	private BoxWindow bxw;
 
 	
-	public LigneResume(String pname, double pvalue, int size){
+	public LigneResume(Var vr, BoxWindow bxw){
 		
-		this.name=pname;
-		this.value=pvalue;
-		this.width=size;
+		this.vr=vr;
+		this.name=vr.getName();
+		this.value=vr.getValue();
+		this.width=bxw.getWidth();
+		this.bxw=bxw;
+
+
+
 		
-		container.setLayout(new GridLayout(1,2));
-		container2.setLayout(new BorderLayout());
+
+		BoxLayout containerLayout = new BoxLayout(container, BoxLayout.LINE_AXIS);
+
+
+		
+		
+		container.setLayout(containerLayout);
+		//container2.setLayout(new BorderLayout());
 		
 		try {
 	    	    
@@ -55,13 +75,26 @@ public class LigneResume extends JPanel {
 	nameLabel.setText(name);
 	valueLabel.setText(new Double(value).toString());
 
-
-	container.setMinimumSize(new Dimension(width,10));
-	container2.add(valueLabel, BorderLayout.CENTER);
-	container2.add(rm, BorderLayout.EAST);
 	
-	container.add(nameLabel);
-	container.add(container2);
+	label1.setLayout(new FlowLayout(FlowLayout.LEFT));
+	label2.setLayout(new FlowLayout(FlowLayout.LEFT));
+	
+	label1.add(nameLabel);
+	label2.add(valueLabel);
+	button.add(rm);
+	//
+	label1.setPreferredSize(new Dimension((int)(width/2)+30, 40));
+	label2.setPreferredSize(new Dimension((int)(width/2)-100, 40));
+	button.setPreferredSize(new Dimension(100, 40));
+
+	//container.setMinimumSize(new Dimension(1000,10));
+	container.setBackground(Color.RED);
+	container.add(label1);
+	container.add(label2);
+	container.add(button);
+	
+
+	//container.add(container2);
 	this.add(container);
 	}
 	
@@ -69,8 +102,7 @@ public class LigneResume extends JPanel {
 		
 	 	@Override
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.print(name);
-
+	 		bxw.removeVar(vr);
 		}
 	}
 	

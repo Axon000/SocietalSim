@@ -78,8 +78,8 @@ public class BoxWindow extends JFrame {
     	
     	varPanel.setLayout(varLayout);
 		varPanel.removeAll();
-    	for (Var var : box.getVar()){
-    		varPanel.add(new LigneResume(var.getName(), var.getValue(), this.getWidth())); 		
+    	for (Var vr : box.getVar()){
+    		varPanel.add(new LigneResume(vr, this)); 		
     	}
     	
     	applyPanel.setLayout(applyLayout);
@@ -108,6 +108,8 @@ public class BoxWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				updateBox(getNameArea().getText(), Double.valueOf(getValueArea().getText()));
+				getNameArea().setText("");
+				getValueArea().setText("");
 	
 			}
 	 }
@@ -118,8 +120,24 @@ public class BoxWindow extends JFrame {
 		 getBox().getVar().addElement(new Var(pname, pvalue));
 	 
 		 varPanel.removeAll();
+		 for (Var vr : box.getVar()){
+			varPanel.add(new LigneResume(vr, this));
+		 }
+
+		varPanel.repaint();
+	   	this.setVisible(true);
+		
+		 
+
+	 } 
+	 
+	 public void removeVar(Var vr){
+	
+		 box.getVar().removeElement(vr);
+		 
+		 varPanel.removeAll();
 		 for (Var var : box.getVar()){
-			varPanel.add(new LigneResume(var.getName(), var.getValue(), this.getWidth()));
+			varPanel.add(new LigneResume(var, this));
 		 }
 
 		varPanel.repaint();
