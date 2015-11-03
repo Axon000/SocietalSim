@@ -74,7 +74,7 @@ public class World {
     
 	//-----------------------------------------------------------------------------------------------
 	
-	public double eval(String str) throws SecurityException, ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public double eval(final String str) throws SecurityException, ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 	    class Parser {
 	        int pos = -1, c;
 
